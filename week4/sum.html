@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <input oninput="debounceGetSum()" id="first" type="number" name="first_number" value=""><br><br>
+        <input oninput="debounceGetSum()" id="second" type="number" name="second_number" value=""> <br><br>
+        <!-- <button onclick="getSum()">calculate</button> -->
+        <br>
+        <hr><br>
+        <div id="ans"></div>
+    </div>
+
+
+    <script>
+
+        // debouncing  = to minimize the number of backend request example searchbar , amazon searchbar , google search bar
+        let timeout=null;
+        function debounceGetSum() {
+            clearTimeout(timeout);
+            timeout = setTimeout(()=>{
+                getSum();
+            },1000)
+           
+        }
+
+
+        async function getSum() {
+            let first_number = document.querySelector("#first").value;
+            let second_number = document.querySelector("#second").value;
+
+            let a = await fetch(`http://localhost:4000/sum/?a=${first_number}&b=${second_number}`)
+
+            let data = await a.text();
+
+            console.log(data);
+
+            document.getElementById("ans").innerHTML = data;
+        }
+
+
+    </script>
+</body>
+
+</html>

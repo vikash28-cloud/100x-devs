@@ -1,0 +1,140 @@
+<!--  creating to-do app -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do </title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .container {
+            position: relative;
+            top: 50px;
+            background-color: rgb(204, 255, 237);
+            width: 30vw;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+            border-radius: 10px;
+        }
+
+        .tasks-container {
+            border: 2px solid black;
+            width: 30vw;
+            margin: auto;
+            position: relative;
+            top: 50px;
+            min-height: 50vh;
+            padding: 5px 2px;
+            overflow-y: scroll;
+        }
+
+        .task {
+            margin: 5px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            background-color: antiquewhite;
+            font-size: 12px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input id="title" type="text" name="task" value="" placeholder="title"><br><br>
+        <input id="description" type="text" value="" placeholder="decription"> <br><br>
+        <button onclick="addTodo()">Add todo</button>
+    </div>
+    <br>
+
+
+
+
+
+    <div class="tasks-container">
+        <!-- <div class="task">
+            <h2>Tittle</h2>
+            <p>decription</p>
+        </div> -->
+    </div>
+
+
+
+
+    <script>
+        let id = 1;
+        let todoState = []
+        function markAsDone(id) {
+            let done = document.getElementById(id);
+            done.children[2].innerHTML = "Done";
+        }
+
+        function createChild(title, description, id) {
+            let child = document.createElement("div");
+            child.setAttribute("id", id);
+            let firstGrandParent = document.createElement("h1");
+            firstGrandParent.innerHTML = title;
+
+            let secondGrandParent = document.createElement("p");
+            secondGrandParent.innerHTML = description;
+
+            let thirdGrandParent = document.createElement("button");
+            thirdGrandParent.innerHTML = "mark As Done";
+            thirdGrandParent.setAttribute("onclick", `markAsDone(${id})`);
+
+
+
+            child.appendChild(firstGrandParent);
+            child.appendChild(secondGrandParent);
+            child.appendChild(thirdGrandParent);
+
+            // document.getElementById("title").value = "";
+            // document.getElementById("description").value = "";
+            return child;
+        }
+
+        function updateState(newTodo) {
+            let container = document.querySelector(".tasks-container");
+            container.innerHTML = "";
+            for (let i = 0; i < newTodo.length; i++) {
+                const title = newTodo[i].title;
+                const description = newTodo[i].description;
+
+                container.appendChild(createChild(title, description, id++));
+            }
+        }
+
+
+        function addTodo() {
+            let title = document.getElementById("title").value;
+            let description = document.getElementById("description").value;
+            todoState.push({
+                title: title,
+                descritpion: description,
+                id: id++,
+
+            })
+
+            updateState(todoState);
+        }
+
+        window.setInterval(() => {
+
+        }, 1000)
+
+    </script>
+
+
+</body>
+
+</html>
