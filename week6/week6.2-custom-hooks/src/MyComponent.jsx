@@ -4,16 +4,14 @@ const MyComponent = () => {
   const [render, setRender] = useState(true);
   useEffect(() => {
     setTimeout(() => {
-      if(render){
+      if (render) {
         setRender(false);
       }
-      else
-      {
+      else {
         setRender(true);
-
       }
     }, 2000);
-  },[render])
+  }, [render])
   return (
     <div>
       {

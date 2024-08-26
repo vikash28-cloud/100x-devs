@@ -6,8 +6,8 @@ import MyComponent from "./MyComponent.jsx"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <App /> */}
+    <App />
     {/* <ClassComponent/> */}
-    <MyComponent/>
+    {/* <MyComponent/> */}
   </React.StrictMode>,
 )
