@@ -46,3 +46,6 @@ function fun1(fn:()=>void){
 fun1(function(){
     console.log("function which is passed as an argument")
 })
+
+
+

@@ -1,12 +1,15 @@
 "use strict";
-class Point {
-    constructor() {
-        this.x = 10;
-        this.y = 20;
-        console.log(this.x);
-        console.log(this.y);
+// class Point {
+//   x = 10;
+//   y = 20;
+class Employee {
+    constructor(name, age) {
+        this.name = name,
+            this.age = age;
+    }
+    greet(phrase) {
+        console.log("hey " + this.name + phrase + this.age);
     }
 }
-const pt = new Point();
-// console.log(pt.x);
-// console.log(pt.y);
+const ob1 = new Employee("vikash", 22);
+ob1.greet(" your age is ");

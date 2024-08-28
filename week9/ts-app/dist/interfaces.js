@@ -13,5 +13,5 @@ function isValid(user) {
 isValid({
     name: "vikash sharma",
     age: 22,
-    height: 170
+    height: 170,
 });

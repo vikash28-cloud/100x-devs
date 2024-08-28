@@ -4,6 +4,7 @@ interface User{
     name:string,
     age:number,
     height:number,
+    
 }
 
 
@@ -21,8 +22,7 @@ function isValid(user:User){
 
 
 isValid({
-   name: "vikash sharma",
-   age:22,
-   height:170
-
+    name: "vikash sharma",
+    age: 22,
+    height: 170,
 })
