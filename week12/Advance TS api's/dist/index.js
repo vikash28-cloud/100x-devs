@@ -27,3 +27,18 @@ function getStudent(student) {
     console.log(student.age, student.email);
 }
 getStudent(student1);
+function parialfunction(prop1) {
+    console.log(prop1);
+}
+// change newProps in function to updateNewProps
+// parialfunction({name:"vikash",email:"vrnriero"}); 
+// Readonly
+const ans = {
+    name: "vikash",
+    age: 22,
+    email: "vikash@gmail.com",
+    address: "delhi"
+};
+ans.email = "new";
+console.log(ans);
+// 
