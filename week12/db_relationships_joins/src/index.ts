@@ -12,15 +12,16 @@ const client = new Client({
 });
 
 // creating a table
-async function createUsersTable() {
+async function createUsersTable(table_name: string) {
   try {
     await client.connect();
     const result = await client.query(`
-      CREATE TABLE users (
+      CREATE TABLE ${table_name} (
         id SERIAL PRIMARY KEY,
         username VARCHAR(58) UNIQUE NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
+
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       )
     `);
@@ -31,27 +32,90 @@ async function createUsersTable() {
     await client.end(); // Close the connection
   }
 }
-// insertion in a table 
-async function insertion(uname: string, email: string, password: string) {
+// insertion in a table
+async function insertion(
+  table_name: string,
+  uname: string,
+  email: string,
+  password: string
+) {
   await client.connect();
   const result = await client.query(
-    `INSERT INTO users (username, email, password)VALUES ('${uname}', '${email}', '${password}')`
+    `INSERT INTO ${table_name} (username, email, password)VALUES ('${uname}', '${email}', '${password}')`
   );
 }
 
-// Relationships 
+// transaction
 
+async function insertUserAndAddress(
+  username: string,
+  email: string,
+  password: string,
+  city: string,
+  country: string,
+  street: string,
+  pincode: string
+) {
+  try {
+    await client.connect();
 
+    // Start transaction
+    await client.query("BEGIN");
 
+    // Insert user
+    const insertUserText = `
+          INSERT INTO users (username, email, password)
+          VALUES ($1, $2, $3)
+          RETURNING id;
+      `;
+    const userRes = await client.query(insertUserText, [
+      username,
+      email,
+      password,
+    ]);
+    const userId = userRes.rows[0].id;
 
+    // Insert address using the returned user ID
+    const insertAddressText = `
+          INSERT INTO addresses (user_id, city, country, street, pincode)
+          VALUES ($1, $2, $3, $4, $5);
+      `;
+    await client.query(insertAddressText, [
+      userId,
+      city,
+      country,
+      street,
+      pincode,
+    ]);
 
+    // Commit transaction
+    await client.query("COMMIT");
 
+    console.log("User and address inserted successfully");
+  } catch (err) {
+    await client.query("ROLLBACK"); // Roll back the transaction on error
+    console.error("Error during transaction, rolled back.", err);
+    throw err;
+  } finally {
+    await client.end(); // Close the client connection
+  }
+}
 
 async function main() {
-  // createUsersTable();
-  await insertion("vikdwdwdwash", "viwdwdwkash@gmail.com", "myscecret")
-  .then(
-    () => console.log("inserted successfully")
-  )
+  // createUsersTable("table1");
+  // await insertion("vikdwdwdwash", "viwdwdwkash@gmail.com", "myscecret")
+  // .then(
+  //   () => console.log("inserted successfully")
+  // )
+
+  insertUserAndAddress(
+    "ironman",
+    "ironman@mark4.com",
+    "stark",
+    "california",
+    "USA",
+    "mountain-hills",
+    "281001"
+  );
 }
 main();
