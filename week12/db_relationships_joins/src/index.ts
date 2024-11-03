@@ -101,6 +101,15 @@ async function insertUserAndAddress(
   }
 }
 
+// joins
+
+// transaction
+
+
+
+
+
+
 async function main() {
   // createUsersTable("table1");
   // await insertion("vikdwdwdwash", "viwdwdwkash@gmail.com", "myscecret")
@@ -108,14 +117,15 @@ async function main() {
   //   () => console.log("inserted successfully")
   // )
 
-  insertUserAndAddress(
-    "ironman",
-    "ironman@mark4.com",
-    "stark",
-    "california",
-    "USA",
-    "mountain-hills",
-    "281001"
-  );
+  // transaction
+  // insertUserAndAddress(
+  //   "ironman",
+  //   "ironman@mark4.com",
+  //   "stark",
+  //   "california",
+  //   "USA",
+  //   "mountain-hills",
+  //   "281001"
+  // );
 }
 main();
