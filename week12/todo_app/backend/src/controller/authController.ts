@@ -62,7 +62,8 @@ export const authlogin=async( req:Request,res:Response)=>{
     res.status(200).json({
         msg: "user logged in successfully",
         user:user?.name,
-        token
+        token,
+        key:true
     })
 
 }

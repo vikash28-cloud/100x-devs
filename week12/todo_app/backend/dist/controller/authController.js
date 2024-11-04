@@ -64,7 +64,8 @@ const authlogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).json({
         msg: "user logged in successfully",
         user: user === null || user === void 0 ? void 0 : user.name,
-        token
+        token,
+        key: true
     });
 });
 exports.authlogin = authlogin;
