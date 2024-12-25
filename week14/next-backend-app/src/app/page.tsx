@@ -1,7 +1,8 @@
 'use client'
+import Link from "next/link";
 import Button from "../../components/Button";
 import Skeltons from "../../components/Skeltons";
-import { userType, useUser } from "./hook";
+import { useUser } from "./hook";
 
 export default function Home() {
   const { user, loading } = useUser();
@@ -13,7 +14,7 @@ export default function Home() {
     <div className="min-w-screen-lg  bg-white-800">
       <div className="flex justify-between w-full bg-black text-white p-4">
         <h1>Vikash Sharma</h1>
-        <a href="/auth/login"><Button name="Login" /></a>
+        <Link href="/auth/login"><Button name="Login" /></Link>
 
       </div>
 
@@ -24,7 +25,7 @@ export default function Home() {
         </div>
 
         <div>
-          <a href="/auth/signup"><Button name="register/signup" /></a>
+          <Link href="/auth/signup"><Button name="register/signup" /></Link>
         </div>
       </div>
 
