@@ -3,15 +3,15 @@ import jwt from "jsonwebtoken"
 import { string } from "zod";
 
 // Middleware to check for JWT
-const authMiddleware=(req:Request,res:Response,next:NextFunction)=>{
+export const authMiddleware=async(req:Request,res:Response,next:NextFunction)=>{
     const authHeader=req.headers.authorization;
-    const token = authHeader?.split(' ')[1];
 
     try {
-        const decode = jwt.verify(token!,"mysuperkey");
+        const decode = jwt.verify(authHeader!,"mysuperkey");
         if(decode){
+            // @ts-ignore 
             req.userId = decode.userId;
-            next();
+            await next();
         }
         
     } catch (error) {

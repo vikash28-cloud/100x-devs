@@ -1,5 +1,8 @@
-export default function Signup(){
+'use client';
+import Signup from "../../../../components/Signup";
+
+export default function signup(){
     return <div>
-        this is signup page
+        <Signup/>
     </div>
 }

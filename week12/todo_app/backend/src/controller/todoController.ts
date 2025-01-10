@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { number, z } from "zod";
 const prisma = new PrismaClient();
 
+
+
 export const getAllTodos=async(req:Request,res:Response)=>{
     let allTodos = await prisma.todo.findMany({});
     res.status(200).json({
@@ -12,11 +14,9 @@ export const getAllTodos=async(req:Request,res:Response)=>{
 
 }
 
-
-
 const todoSchema = z.object({
-    title: z.string().min(1, "Title is required"),
-    description: z.string().min(1, "Description is required"),
+    title: z.string(),
+    description: z.string(),
     userId:z.number()
 })
 export const createTodo=async(req:Request,res:Response)=>{
@@ -31,7 +31,8 @@ export const createTodo=async(req:Request,res:Response)=>{
 
     res.status(200).json({
         msg:"Todo created",
-        newTodo
+        newTodo,
+        
     })
     
 }
